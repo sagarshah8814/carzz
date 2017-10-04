@@ -1,0 +1,50 @@
+﻿<div class="well">
+    <h2>Filter Vehicles</h2>
+    <div class="form-group">
+        <label for="make">Make</label>
+        <select id="make" class="form-control" [(ngModel)]="filter.makeId" (change)="onMakeSelect()">
+            <option value=""></option>
+            <option *ngFor="let m of makes" value="{{m.id}}">{{m.name}}</option>
+        </select>
+        <label for="model">Model</label>
+        <select id="model" class="form-control" [(ngModel)]="filter.modelId">
+            <option value=""></option>
+            <option *ngFor="let model of models" value="{{model.id}}">{{model.name}}</option>
+        </select>
+        <label for="year">Year</label>
+        <select id="year" class="form-control" [(ngModel)]="filter.year">
+            <option value=""></option>
+            <option *ngFor="let y of years" value="{{y}}">{{y}}</option>
+        </select>
+    </div>
+    <button type="button" class="btn btn-success" (click)="onFilterChange()">Search</button>
+    <button type="button" class="btn btn-primary" (click)="onFilterReset()">Reset</button>
+</div>
+<h2>List of Vehicles</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th *ngFor="let t of tableHead" >
+            <div *ngIf="t.isSortable" (click)="onSortBy(t.key)" style="cursor: pointer">
+                {{t.title}}
+                <i *ngIf="filter.sortBy===t.key" class="fa"
+                   [class.fa-sort-asc]="filter.isSortAscending"
+                   [class.fa-sort-desc]="!filter.isSortAscending"></i>
+            </div>
+            <div *ngIf="!t.isSortable">
+                {{t.title}}
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let vehicle of vehicles; let i=index">
+        <td>{{i+1}}</td>
+        <td>{{vehicle.make.name}}</td>
+        <td>{{vehicle.model.name}}</td>
+        <td>{{vehicle.contact.name}}</td>
+        <td>{{vehicle.year}}</td>
+        <td><a [routerLink]="['/vehicles/'+ vehicle.id]">View</a></td>
+    </tr>
+    </tbody>
+</table>

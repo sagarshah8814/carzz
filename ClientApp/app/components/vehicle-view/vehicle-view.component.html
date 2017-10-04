@@ -1,0 +1,45 @@
+﻿<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="presentation"><a href="#view" role="tab" aria-controls="view" data-toggle="tab">View</a></li>
+        <li role="presentation"><a href="#photo" role="tab" aria-controls="photo" data-toggle="tab">Photo</a></li>
+    </ul>
+    <div class="tab-content" *ngIf="vehicle">
+        <div role="tabpanel" class="tab-pane active" id="view">
+            <h2>Vehicle Details</h2>
+            <ul>
+                <li>Make: {{vehicle.make.name}}</li>
+                <li>Model: {{vehicle.model.name}}</li>
+                <li>Year: {{vehicle.year}}</li>
+                <li>Odemeter Reading: {{vehicle.odometer}}</li>
+                <li>Title Status: {{vehicle.title}}</li>
+            </ul>
+            <h2>Features</h2>
+            <ul>
+                <li *ngFor="let f of vehicle.features">{{f.name}}</li>
+            </ul>
+            <h2>Contact</h2>
+            <ul>
+                <li>Name: {{vehicle.contact.name}}</li>
+                <li>Phone: {{vehicle.contact.phone}}</li>
+                <li>Email: {{vehicle.contact.email}}</li>
+            </ul>
+            <br/>
+            <p>
+            <a class="btn btn-primary" [routerLink]="['/vehicles/edit/' + vehicle.id]">Edit</a>
+                <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+                <a class="btn btn-default" [routerLink]="['/vehicles']">View All Vehicles</a>
+            </p>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="photo">
+            <h2>Photo</h2>
+            <input type="file" (change)="uploadPhoto()" #fileInput>
+            <br/>
+            <div class="img-thumbnail" *ngFor="let photo of photos">
+                <img  src="/uploads/{{photo.fileName}}">
+                <p>
+                    <button class="btn btn-danger" (click)="onRemoveImage(photo.id)">Delete</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
