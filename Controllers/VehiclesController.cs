@@ -8,6 +8,7 @@ using carzz.Controllers.Resources;
 using carzz.Core;
 using carzz.Core.Models;
 using carzz.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace carzz.Controllers
@@ -26,6 +27,7 @@ namespace carzz.Controllers
             _unitOfWork = unitOfWork;
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateVehicle([FromBody]SaveVehicleResource saveVehicleResource)
         {
             if (!ModelState.IsValid)
@@ -34,6 +36,7 @@ namespace carzz.Controllers
             }
             var vehicle = _mapper.Map<SaveVehicleResource, Vehicle>(saveVehicleResource);
             vehicle.LastUpdate=DateTime.Now;
+            vehicle.Status = "For Sale";
              _vehicleRepository.AddVehicle(vehicle);
             await _unitOfWork.Complete();
             vehicle = await _vehicleRepository.GetVehicle(vehicle.Id, true);
@@ -42,6 +45,7 @@ namespace carzz.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateVehicle(int id,[FromBody] SaveVehicleResource saveVehicleResource)
         {
             if (!ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace carzz.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
             var vehicle = await _vehicleRepository.GetVehicle(id, true);

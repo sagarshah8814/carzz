@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using carzz.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 namespace carzz
@@ -34,7 +35,18 @@ namespace carzz
             services.AddAutoMapper();
             services.AddDbContext<CarzzDbContext>(options=>options.UseSqlServer("Server = (localdb)\\MSSQLLOCALDB; Database = carzz; Trusted_Connection = True; MultipleActiveResultSets = true"));
             services.AddMvc();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://sagarshah.auth0.com/";
+                options.Audience = "https://api.carzz.com";
+            });
         }
+    
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -53,6 +65,8 @@ namespace carzz
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

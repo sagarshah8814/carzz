@@ -9,4 +9,5 @@ export interface SaveVehicle {
     odometer: number;
     features: number[];
     contact:Contact;
+    price:number;
 }

@@ -3,6 +3,8 @@ import { Vehicle } from "../../models/vehicle";
 import { VehicleService } from "../../services/vehicle.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PhotoService } from "../../services/photo.service";
+import { AuthService } from "../../services/auth.service";
+import { AdminService } from "../../services/admin.service";
 
 @Component({
     selector: "vehicle-view",
@@ -14,8 +16,11 @@ export class VehicleViewComponent implements OnInit {
     id: number;
     photos:any[];
 
-    constructor(private vehicleService: VehicleService, private route: ActivatedRoute,
-        private router: Router, private photoService:PhotoService) {
+    constructor(private vehicleService: VehicleService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private photoService: PhotoService,
+        private auth: AuthService, private adminService:AdminService) {
         this.route.params.subscribe(data => {
             this.id = +data['id'];
             if (isNaN(this.id) || this.id <= 0) {
@@ -40,6 +45,11 @@ export class VehicleViewComponent implements OnInit {
             });
 
        
+    }
+    checkForUser(email:string) {
+        if (this.auth.getUserEmail() == email)
+            return true;
+        return false;
     }
 
     onDelete() {
@@ -66,6 +76,13 @@ export class VehicleViewComponent implements OnInit {
                 this.photos.splice(index, 1);
             });
         }
+    }
+
+    onSellVehicle() {
+        this.adminService.changeVehicleStatus(this.vehicle).subscribe(x => {
+            console.log(x);
+            this.router.navigate(['/admin']);
+        });
     }
     
 }

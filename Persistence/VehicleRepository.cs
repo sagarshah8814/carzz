@@ -22,9 +22,9 @@ namespace carzz.Persistence
         {
             if (!includeRelated)
             {
-                return await _context.Vehicles.FindAsync(id);
+                return await _context.Vehicles.Where(v=>v.Status=="For Sale").SingleOrDefaultAsync(v=>v.Id==id);
             }
-            return await _context.Vehicles.Include(v => v.Features)
+            return await _context.Vehicles.Where(v=>v.Status=="For Sale").Include(v => v.Features)
                 .ThenInclude(vf => vf.Feature)
                 .Include(v => v.Model).ThenInclude(m => m.Make)
                 .SingleOrDefaultAsync(v=>v.Id==id);
@@ -32,7 +32,7 @@ namespace carzz.Persistence
 
         public async Task<IEnumerable<Vehicle>> GetVehicles(Filter filter)
         {
-            var query = _context.Vehicles.Include(v => v.Features)
+            var query = _context.Vehicles.Where(v=>v.Status=="For Sale").Include(v => v.Features)
                 .ThenInclude(vf => vf.Feature)
                 .Include(v => v.Model)
                 .ThenInclude(m => m.Make).AsQueryable();
@@ -61,7 +61,14 @@ namespace carzz.Persistence
             query = query.ApplyOrdering(filter, columnsMap);
             return await query.ToListAsync();
         }
-            
+
+        public async Task<IEnumerable<Vehicle>> GetSoldVehicles()
+        {
+            return await _context.Vehicles.Where(v => v.Status == "Sold").Include(v => v.Features)
+                .ThenInclude(vf => vf.Feature).Include(v => v.Model).ThenInclude(m => m.Make).ToListAsync();
+        }
+
+
         public void AddVehicle(Vehicle vehicle)
         {
             _context.Vehicles.Add(vehicle);

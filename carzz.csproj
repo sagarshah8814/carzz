@@ -30,21 +30,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\admin\admin.component.ts" />
     <None Remove="ClientApp\app\components\vehicle-list\vehicle-list.component.ts" />
+    <None Remove="ClientApp\app\models\chartData.ts" />
     <None Remove="ClientApp\app\models\contact.ts" />
     <None Remove="ClientApp\app\models\keyValuePair.ts" />
     <None Remove="ClientApp\app\models\saveVehicle.ts" />
     <None Remove="ClientApp\app\models\vehicle.ts" />
+    <None Remove="ClientApp\app\services\admin-auth-guard.service.ts" />
+    <None Remove="ClientApp\app\services\admin.service.ts" />
+    <None Remove="ClientApp\app\services\auth-guard.service.ts" />
+    <None Remove="ClientApp\app\services\auth.service.ts" />
     <None Remove="ClientApp\app\services\photo.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\admin\admin.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\vehicle-list\vehicle-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\vehicle-view\vehicle-view.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\chartData.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\contact.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\keyValuePair.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\saveVehicle.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\vehicle.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\admin-auth-guard.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\admin.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\auth-guard.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\auth.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\photo.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\vehicle.service.ts" />
   </ItemGroup>

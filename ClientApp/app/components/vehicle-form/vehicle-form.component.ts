@@ -6,6 +6,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/Observable/forkJoin";
 import { SaveVehicle } from "../../models/saveVehicle";
 import { Vehicle } from "../../models/vehicle";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
     selector: "vehicle-form",
@@ -26,7 +27,8 @@ export class VehicleFormComponent implements OnInit{
             name: '',
             phone:'',
             email:''
-        }
+        },
+        price:0
     };
     models: any[];
     features: any[];
@@ -34,7 +36,8 @@ export class VehicleFormComponent implements OnInit{
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private vehicleService: VehicleService) {
+        private vehicleService: VehicleService,
+        private authService: AuthService) {
         this.route.params.subscribe(p => {
             this.vehicles.id = +p['id'];
        });
@@ -60,7 +63,8 @@ export class VehicleFormComponent implements OnInit{
                 this.router.navigate(['/home']);
             }
         });
-        this.makeYear=this.vehicleService.getYear();
+        this.makeYear = this.vehicleService.getYear();
+        this.vehicles.contact.email = this.authService.getUserEmail();
     }
 
     setVehicle(v:Vehicle) {
@@ -72,6 +76,7 @@ export class VehicleFormComponent implements OnInit{
         this.vehicles.odometer = v.odometer;
         this.vehicles.features = _.pluck(v.features, 'id');
         this.vehicles.contact = v.contact;
+        this.vehicles.price = v.price;
     }
 
     onMakeChange() {

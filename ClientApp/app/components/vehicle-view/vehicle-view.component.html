@@ -12,6 +12,7 @@
                 <li>Year: {{vehicle.year}}</li>
                 <li>Odemeter Reading: {{vehicle.odometer}}</li>
                 <li>Title Status: {{vehicle.title}}</li>
+                <li>Price: ${{vehicle.price}}</li>
             </ul>
             <h2>Features</h2>
             <ul>
@@ -25,19 +26,20 @@
             </ul>
             <br/>
             <p>
-            <a class="btn btn-primary" [routerLink]="['/vehicles/edit/' + vehicle.id]">Edit</a>
-                <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+            <a class="btn btn-primary" [routerLink]="['/vehicles/edit/' + vehicle.id]" *ngIf="checkForUser(vehicle.contact.email)|| auth.isInRole('Admin')">Edit</a>
+                <button class="btn btn-danger" (click)="onDelete()" *ngIf="checkForUser(vehicle.contact.email)|| auth.isInRole('Admin')">Delete</button>
+                <button class="btn btn-danger" (click)="onSellVehicle()" *ngIf="auth.isInRole('Admin')">Mark as Sold</button>
                 <a class="btn btn-default" [routerLink]="['/vehicles']">View All Vehicles</a>
             </p>
         </div>
         <div role="tabpanel" class="tab-pane" id="photo">
             <h2>Photo</h2>
-            <input type="file" (change)="uploadPhoto()" #fileInput>
+            <input type="file" (change)="uploadPhoto()" *ngIf="checkForUser(vehicle.contact.email)|| auth.isInRole('Admin')" #fileInput>
             <br/>
             <div class="img-thumbnail" *ngFor="let photo of photos">
                 <img  src="/uploads/{{photo.fileName}}">
                 <p>
-                    <button class="btn btn-danger" (click)="onRemoveImage(photo.id)">Delete</button>
+                    <button class="btn btn-danger" (click)="onRemoveImage(photo.id)" *ngIf="checkForUser(vehicle.contact.email)||auth.isInRole('Admin')">Delete</button>
                 </p>
             </div>
         </div>

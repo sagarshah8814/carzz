@@ -12,5 +12,6 @@ namespace carzz.Core
         void AddVehicle(Vehicle vehicle);
         void RemoveVehicle(Vehicle vehicle);
         Task<IEnumerable<Vehicle>> GetVehicles(Filter filter);
+        Task<IEnumerable<Vehicle>> GetSoldVehicles();
     }
 }

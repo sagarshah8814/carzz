@@ -38,12 +38,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let vehicle of vehicles; let i=index">
+    <tr *ngFor="let vehicle of vehicles; let i=index" [ngStyle]="{backgroundColor: onUserVehicle(vehicle.contact.email)?'lawngreen':'transparent'}">
         <td>{{i+1}}</td>
         <td>{{vehicle.make.name}}</td>
         <td>{{vehicle.model.name}}</td>
         <td>{{vehicle.contact.name}}</td>
         <td>{{vehicle.year}}</td>
+        <td>{{vehicle.price}}</td>
         <td><a [routerLink]="['/vehicles/'+ vehicle.id]">View</a></td>
     </tr>
     </tbody>

@@ -41,6 +41,10 @@
         <label for="odometer">Odometer Reading</label>
         <input type="number" id="odometer" class="form-control" [(ngModel)]="vehicles.odometer" name="odometer"/>
     </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" id="price" class="form-control" [(ngModel)]="vehicles.price" name="price"/>
+    </div>
     <h2>Contact</h2>
     <div class="form-group">
         <label for="contactName">Name</label>
@@ -54,7 +58,7 @@
     </div>
     <div class="form-group">
         <label for="contactEmail">Email</label>
-        <input type="text" id="contactEmail" class="form-control" [(ngModel)]="vehicles.contact.email" name="contactEmail"/>
+        <input type="text" id="contactEmail" class="form-control" [(ngModel)]="vehicles.contact.email" name="contactEmail" [readonly]="true"/>
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="!f.valid"> Save</button>
 </form>

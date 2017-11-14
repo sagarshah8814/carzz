@@ -27,7 +27,10 @@ namespace carzz.Core.Models
         public string ContactPhone { get; set; }
         [StringLength(255)]
         public string ContactEmail { get; set; }
+        [Required]
+        public int Price { get; set; }
         public DateTime LastUpdate { get; set; }
+        public string Status { get; set; }
         public ICollection<VehicleFeature> Features { get; set; }
         public ICollection<Photo> Photos { get; set; }
 

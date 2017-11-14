@@ -15,7 +15,9 @@ namespace carzz.Controllers.Resources
         public int Year { get; set; }
         public int Odometer { get; set; }
         public ContactResource Contact { get; set; }
+        public int Price { get; set; }
         public DateTime LastUpdate { get; set; }
+        public string Status { get; set; }
         public ICollection<KeyValuePairResource> Features { get; set; }
 
         public VehicleResource()

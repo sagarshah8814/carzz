@@ -6,6 +6,7 @@ using AutoMapper;
 using carzz.Controllers.Resources;
 using carzz.Core.Models;
 using carzz.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

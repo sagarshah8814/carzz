@@ -2,11 +2,12 @@
 import { Http } from "@angular/http";
 import "rxjs/add/operator/map";
 import { SaveVehicle } from "../models/saveVehicle";
+import { AuthHttp } from "angular2-jwt/angular2-jwt";
 
 @Injectable()
 export class VehicleService {
     year: any[] = [1989];
-    constructor(private http:Http) { }
+    constructor(private http:Http, private authHttp:AuthHttp) { }
 
     getMakes() {
         return this.http.get('/api/makes').map(res => res.json());
@@ -22,7 +23,7 @@ export class VehicleService {
     }
     create(vehicle: SaveVehicle) {
         vehicle.id = 0;
-        return this.http.post('/api/vehicles',vehicle).map(res => res.json());
+        return this.authHttp.post('/api/vehicles',vehicle).map(res => res.json());
     }
     getVehicle(id:number) {
         return this.http.get('/api/vehicles/' + id).map(res => res.json());
@@ -41,9 +42,9 @@ export class VehicleService {
         return parts.join("&");
     }
     update(v:SaveVehicle) {
-       return this.http.put('/api/vehicles/' + v.id, v).map(res => res.json());
+       return this.authHttp.put('/api/vehicles/' + v.id, v).map(res => res.json());
     }
     delete(id:number) {
-        return this.http.delete('/api/vehicles/' + id).map(res => res.json());
+        return this.authHttp.delete('/api/vehicles/' + id).map(res => res.json());
     }
 }

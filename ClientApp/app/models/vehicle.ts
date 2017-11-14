@@ -10,5 +10,6 @@ export interface Vehicle {
     odometer: number;
     features: KeyValuePair[];
     contact:Contact;
+    price:number;
     lastUpdate:string;
 }

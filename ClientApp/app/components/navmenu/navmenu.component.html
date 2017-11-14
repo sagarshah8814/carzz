@@ -12,6 +12,16 @@
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
+                <li >
+                    <a (click)="authService.login()" *ngIf="!authService.isAuthenticated()" style="cursor: pointer">
+                        <span class='glyphicon glyphicon-user'></span> Login
+                    </a>
+                </li>
+                <li>
+                    <a (click)="authService.logout()" *ngIf="authService.isAuthenticated()" style="cursor: pointer">
+                        <span class='glyphicon glyphicon-user'></span> LogOut
+                    </a>
+                </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
                         <span class='glyphicon glyphicon-home'></span> Home
@@ -27,14 +37,9 @@
                         <span class='glyphicon glyphicon-plus'></span> New Vehicle
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/counter']">
-                        <span class='glyphicon glyphicon-education'></span> Counter
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/fetch-data']">
-                        <span class='glyphicon glyphicon-th-list'></span> Fetch data
+                <li [routerLinkActive]="['link-active']" *ngIf="authService.isInRole('Admin')">
+                    <a [routerLink]="['/admin']">
+                        <span class='glyphicon glyphicon-education'></span> Admin
                     </a>
                 </li>
             </ul>

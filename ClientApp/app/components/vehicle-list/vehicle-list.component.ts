@@ -1,6 +1,7 @@
 ﻿import { Component,OnInit } from "@angular/core";
 import { Vehicle } from "../../models/vehicle";
 import { VehicleService } from "../../services/vehicle.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
     selector: "vehicle-list",
@@ -18,11 +19,13 @@ export class VehicleListComponent implements OnInit{
         { title: 'Make',key:'make',isSortable:true },
         { title: 'Model',key:'model',isSortable:true },
         { title: 'Contact Name',key:'contactName',isSortable:true },
-        { title: 'Year',key:'year',isSortable:true },
+        { title: 'Year', key: 'year', isSortable: true },
+        {title:'Price', key:'price', isSortable:true},
         {  }
     ];
 
-    constructor(private vehicleService:VehicleService) { }
+    constructor(private vehicleService: VehicleService, private authService:AuthService) {
+    }
 
     ngOnInit() {
         this.vehicleService.getMakes().subscribe(m => {
@@ -66,5 +69,11 @@ export class VehicleListComponent implements OnInit{
             this.filter.isSortAscending = false;
         }
         this.populateVehicles();
+    }
+    onUserVehicle(email: string) {
+        if (this.authService.isAuthenticated()) {
+            return (this.authService.getUserEmail() == email);
+        }
+        return false;
     }
 }

@@ -15,7 +15,7 @@ namespace carzz.Controllers.Resources
         public int Odometer { get; set; }
         public ContactResource Contact { get; set; }
         public ICollection<int> Features { get; set; }
-
+        public int Price { get; set; }
         public SaveVehicleResource()
         {
             Features = new Collection<int>();

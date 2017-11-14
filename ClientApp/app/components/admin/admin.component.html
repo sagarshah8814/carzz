@@ -1,0 +1,39 @@
+﻿<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="presentation"><a href="#vehicleTable" role="tab" aria-controls="vehicleTable" data-toggle="tab">Vehicle List</a></li>
+        <li role="presentation"><a href="#chart" role="tab" aria-controls="chart" data-toggle="tab">Sales Chart</a></li>
+    </ul>
+    <div class="tab-content" *ngIf="vehicles">
+        <div role="tabpanel" class="tab-pane active" id="vehicleTable">
+            <h2>Sold Vehicles</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Contact Name</th>
+                    <th>Year</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let v of vehicles; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{v.make.name}}</td>
+                    <td>{{v.model.name}}</td>
+                    <td>{{v.contact.name}}</td>
+                    <td>{{v.year}}</td>
+                    <td>{{v.price}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="chart" *ngIf="checkForData()">
+            <h2>Sales Report</h2>
+            <chart type="pie" [data]="data"></chart>
+        </div>
+    </div>
+</div>
+
+
